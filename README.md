@@ -1,56 +1,134 @@
-# Welcome to your Expo app 👋
+# NewsApp 📰
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> Aplicativo móvel de notícias com navegação por categorias, desenvolvido com React Native, Expo e TypeScript.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Sobre o Projeto
+
+O **NewsApp** é um aplicativo mobile para leitura de notícias de **Tecnologia** e **Esportes**. O usuário pode alternar entre as categorias, visualizar resumos em cartões e abrir cada notícia para ler seu conteúdo completo, com suporte aos temas claro (*Light*) e escuro (*Dark*).
+
+O projeto tem como objetivo praticar a combinação de três tipos de navegação com **Expo Router**: menu lateral (**Drawer**), abas (**Tabs**) e pilhas de telas (**Stack**). As notícias são dados de exemplo armazenados localmente em `src/data/newsData.ts`, sem integração com uma API externa.
+
+---
+
+## ✨ Funcionalidades
+
+- 🗂️ **Notícias por Categoria**: Abas de Tecnologia e Esportes, com cinco notícias de exemplo em cada categoria.
+- 📰 **Listagem de Notícias**: Listas com `FlatList` e cartões reutilizáveis (`NewsCard`) que exibem categoria, título e resumo.
+- 📖 **Leitura Completa**: Telas de detalhes com conteúdo rolável, título dinâmico no cabeçalho e mensagem para notícias não encontradas.
+- 🧭 **Navegação Integrada**:
+  - **Drawer** na raiz para acessar Notícias e Sobre.
+  - **Tabs** para alternar entre Tecnologia e Esportes.
+  - **Stack** em cada categoria para navegar da lista aos detalhes.
+- ℹ️ **Tela Sobre**: Apresentação do aplicativo e dos tipos de navegação utilizados, com botão de retorno às notícias.
+- 🌓 **Temas Claro e Escuro**: Cores adaptadas automaticamente ao tema do sistema, com componentes reutilizáveis `ThemedView` e `ThemedText`.
+- 📱 **Áreas Seguras**: Uso de `SafeAreaProvider` e `SafeAreaView` para acomodar o conteúdo às áreas seguras do dispositivo.
+
+---
+
+## 🛠️ Tecnologias e Ferramentas
+
+- **[React Native](https://reactnative.dev/)** (v0.86.3) - Framework para desenvolvimento mobile multiplataforma.
+- **[Expo](https://expo.dev/)** (SDK 57) - Plataforma e ferramentas de desenvolvimento do aplicativo.
+- **[Expo Router](https://docs.expo.dev/router/introduction/)** - Navegação baseada em arquivos, com Drawer, Tabs e Stack.
+- **[TypeScript](https://www.typescriptlang.org/)** (v6.0) - Tipagem dos componentes e dos dados de notícias.
+- **[React](https://react.dev/)** (v19.2.3) - Construção da interface com componentes.
+- **[React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/)** e **[Reanimated](https://docs.swmansion.com/react-native-reanimated/)** - Suporte a gestos e animações da navegação.
+- **[React Native Safe Area Context](https://github.com/th3rdwave/react-native-safe-area-context)** - Tratamento das áreas seguras da tela.
+- **[Expo Vector Icons](https://icons.expo.fyi/)** - Ícones Ionicons utilizados no menu e nas abas.
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
+NewsApp/
+├── assets/
+│   ├── expo.icon/           # Ícone do app para iOS
+│   └── images/             # Ícones, splash screen e imagem da tela Sobre
+├── src/
+│   ├── app/                # Rotas e telas do Expo Router
+│   │   ├── _layout.tsx     # Drawer raiz, tema e provedores globais
+│   │   ├── index.tsx       # Redirecionamento para Tecnologia
+│   │   ├── about.tsx       # Tela Sobre
+│   │   └── (news)/
+│   │       ├── _layout.tsx # Abas de Tecnologia e Esportes
+│   │       ├── technology/
+│   │       │   ├── _layout.tsx # Stack de Tecnologia
+│   │       │   ├── index.tsx   # Lista de notícias de Tecnologia
+│   │       │   └── [id].tsx    # Detalhes da notícia selecionada
+│   │       └── sports/
+│   │           ├── _layout.tsx # Stack de Esportes
+│   │           ├── index.tsx   # Lista de notícias de Esportes
+│   │           └── [id].tsx    # Detalhes da notícia selecionada
+│   ├── components/
+│   │   ├── NewsCard.tsx    # Cartão de resumo da notícia
+│   │   ├── ThemedText.tsx  # Texto com suporte ao tema
+│   │   └── ThemedView.tsx  # Contêiner com suporte ao tema
+│   ├── data/
+│   │   └── newsData.ts     # Notícias locais e funções de consulta
+│   └── types/
+│       └── news.ts         # Tipos NewsItem e NewsCategory
+├── app.json                # Configurações do Expo
+├── eas.json                # Perfis de build do EAS
+├── eslint.config.js        # Configuração do ESLint
+├── package.json            # Dependências e scripts do projeto
+├── tsconfig.json           # Configuração do TypeScript
+└── README.md               # Documentação do projeto
+```
+
+---
+
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org/) em uma versão LTS compatível com o SDK 57 e gerenciador de pacotes **npm**.
+- Para executar no celular, **Expo Go compatível com o SDK do projeto** ou uma compilação de desenvolvimento instalada.
+- Como alternativa, emulador Android configurado ou simulador iOS (disponível no macOS com Xcode).
+
+### Passo a Passo
+
+1. **Clone o repositório:**
+
+   ```bash
+   git clone https://github.com/lucasrvcintra/newsApp.git
+   cd newsApp
+   ```
+
+2. **Instale as dependências:**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Inicie o servidor de desenvolvimento:**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. **Abra o app:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   - **No celular físico**: Escaneie o código QR exibido no terminal para abrir no Expo Go compatível ou na compilação de desenvolvimento.
+   - **No emulador Android**: Pressione `a` no terminal.
+   - **No simulador iOS**: Pressione `i` no terminal.
+   - **No navegador web**: Pressione `w` no terminal.
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 📋 Scripts Disponíveis
 
-When you're ready, run:
+| Comando | Descrição |
+| :--- | :--- |
+| `npm run start` ou `npx expo start` | Inicia o servidor de desenvolvimento do Expo |
+| `npm run android` | Inicia o servidor e abre o app no Android |
+| `npm run ios` | Inicia o servidor e abre o app no simulador iOS |
+| `npm run web` | Inicia a aplicação no navegador web |
+| `npm run lint` | Executa a verificação de código com ESLint / Expo Lint |
+| `npx tsc --noEmit` | Executa a checagem estática de tipos do TypeScript |
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Feito por [Lucas Cintra](https://github.com/lucasrvcintra).
